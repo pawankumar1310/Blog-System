@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titleblock %}
+    All Categories
+{% endblock %}
+{% block bodyblock %}
+    <div class="row">
+        {% for category in object_list %}
+            {% if not category.parent %}
+                {% include "category/components/category_card.html" %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

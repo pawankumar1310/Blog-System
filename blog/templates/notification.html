@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block bodyblock %}
+    <div class="row">
+        <div class="row">
+            <h4>Notifications</h4>
+        </div>
+        {% for notis in notice %}
+            <div vlink = "green">
+                <li><a  href = "{% url 'blog:post' notis.blogPost.pk %}"> {{notis.content}} by {{notis.author}}</a></li>
+            </div>
+        {% endfor %}
+    </div>        
+{% endblock %}
+        
+        
+

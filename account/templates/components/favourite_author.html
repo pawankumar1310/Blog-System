@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titleblock %}
+    Author {{ object.user.username }}
+{% endblock %}
+{% block bodyblock %}
+    <div>
+        <h2 class="header">About author</h2>
+        {% for follower in followers %}
+            <div class="card horizontal hoverable">
+                <div class="card-image" style="padding: 20px">
+                    {% if author.avatar %}
+                        <img style="width: 150px; height: auto; max-height: 150px; border-radius: 50%" src="{{ author.avatar.url }}" alt="Profile picture of {{ author.author }}" class="circle">
+                    {% else %}
+                        <img style="width: 150px; height: auto" src="{% static "avatar.png" %}" alt="" class="circle">
+                    {% endif %}
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <a ><h5>{{ follower.followed }}</h5></a>
+                        <p>{{ follower.bio }}</p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+            {% if author.user_type == 'a' %}
+                <div style="width:400px;">
+                    <div style="float: left; width: 130px"> 
+                        
+                            <!-- Follow button -->
+                            <form method="POST" action = "{% url 'follow:followed' %}" >
+                                {% csrf_token %}
+                                
+                                <input type="number" name='followed_user_id' hidden value="{{ author.u_id}}">
+                                <button class="btn profile-edit-btn" type="submit">Follow</button>
+                            </form>
+                        </div>
+                        <div style="float: right; width: 225px"> 
+
+                            <!-- Unfollow button -->
+                            <form method="POST"action = "{% url 'follow:Unfollowed' %}" >
+                                {% csrf_token %}
+                                <input type="number" name="unfollowed_user_id" hidden value="{{ author.u_id}}">
+                                <button class="btn profile-edit-btn" type="submit">Unfollow</button>
+                            </form>
+                        
+                        
+                    </div>
+                </div>
+                <br>
+                <br>
+                <span class= "mr-3 mr-md-5">
+                    
+                    <strong>
+                        {{ author.follower_count }}
+                    </strong> followers
+                </span>
+                {% endif %}
+                {% else %}
+                <form method = "POST" , action = "{% url 'account:login' %}", class = "ui form">
+                    {% csrf_token %}
+                    <button class="btn profile-edit-btn" type="submit">Follow</button>
+                    </form>
+                {% endif %}
+                
+            </div>
+        {% endfor %}
+        
+    </div>
+{% endblock %}

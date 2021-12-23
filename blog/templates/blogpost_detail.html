@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block titleblock %}
+{{ object.title }}
+{% endblock %}
+{% block bodyblock %}
+
+<div class="card hoverable">
+    <div class="card-image">
+        {% if object.blog_image %}
+        <img class="materialboxed" width="300" height="300" src="{{ object.blog_image.url }}" alt="{{ object.title }}">
+        {% else %}
+        <img class="materialboxed" width="300" height="300" src="{% static 'default.jpg' %}" alt="Default post image">
+        {% endif %}
+        <span class="card-title">{{ object.blog_title }}</span>
+    </div>
+    {% include "breadcrumbs.html" with category=object.category.first %}
+    <div style="padding: 20px">
+        <ul>
+            <li class="collection-item">
+                <i class="material-icons tiny">access_time</i>
+                <span class="title">Published: {{ object.created_time }}</span>
+            </li>
+            <li class="collection-item">
+                <i class="material-icons tiny">person</i>
+                <span class="title">Author: {{ object.author_id.username }}</span>
+            </li>
+            {% if object.category.all %}
+            <li class="collection-item">
+                <i class="material-icons tiny">list</i>
+                <span class="title">Category:
+                    {% for category in object.category.all %}
+                    {{ category }}
+                    {% endfor %}
+                </span>
+            </li>
+            {% endif %}
+            <li>
+                {% if user.is_authenticated %}
+                {% if user.user_type == 'r'%}
+                <form method="post" , action="{% url 'like:like_post' %}" , class="ui form">
+                    {% csrf_token %}
+                    <input type='hidden' name='blog_id' value="{{object.blog_id}}">
+
+                    {% if not user in object.likes.all %}
+
+                    <button class="ui button positive" type="submit">Like</button>
+                    {% else %}
+                    <button class="ui button negative" type="submit">Unlike</button>
+                    {% endif %}
+                </form>
+                {% endif %}
+
+                {% else %}
+                <form method="POST" , action="{% url 'account:login' %}" , class="ui form">
+                    {% csrf_token %}
+                    <button class="ui button positive" type="submit">Like</button>
+                </form>
+
+                {% endif %}
+                <strong>{{object.like_count}}</strong>
+
+
+            </li>
+
+        </ul>
+        <hr color="green">
+        {{ object.blog_content|linebreaks }}
+        <br>
+        {{ object.blog_description|linebreaks }}
+        <h2 class="header">About author</h2>
+        {% if object.author_id %}
+        {% include "components/about_author.html" with author=object.author_id more=True %}
+        {% endif %}
+        <br>
+        {% include 'components/comments.html' with comments=comments %}
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.materialboxed');
+        var instances = M.Materialbox.init(elems);
+    });
+</script>
+{% endblock %}

@@ -11,10 +11,7 @@ which is displayed in reverse chronological order (new blog posts first).
  - Python, Django,Html, CSS, Bootstrap
 
 ## Output
-<div align="center">
-<img src="media/Blog_system.PNG" width="1000"/>   
- 
-</div>
+![Blog_sytem](https://user-images.githubusercontent.com/72221154/147220820-4c1b9d94-4ddf-41f2-88a3-f7fa23cdab5a.png)
 
 ## Acknowledgements/Prerequisites
 - **Python IDE**

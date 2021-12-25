@@ -29,33 +29,26 @@ class Blog(models.Model):
     def __unicode__(self):
         return u'%s' % [self.blog_id]
 
-    
     def is_liked(self):
         return Blog.objects.filter(likes = self.user).exists()
-        
-        
+
 
 
     @property
     def like_count(self):
         return self.likes.count()
-    
-    
 
     LIKE_CHOICE = (
         ('Like', 'Like'),
         ('Unlike','Unlike'),
     )
 
-     
-
 class UserComment(models.Model):
     author_id = models.ForeignKey(Usermodel, on_delete=models.SET_NULL, null=True, related_name='posts')
     blog_id = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
     comment = models.CharField(max_length=512)
     comment_date = models.DateTimeField(auto_now_add=True)
-    
-    
+
     def save(self, *args, **kwargs):
         if UserComment.objects.filter(author_id =self.author_id,blog_id=self.blog_id).count() < 3:
             return super(UserComment,self).save(*args,**kwargs)

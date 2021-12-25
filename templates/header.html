@@ -7,14 +7,16 @@
             <li><b>Welcome {{ user }}!</b></li>
             {% endif %}
             <li><a href="{% url 'blog:home' %}">All Blogs</a></li>
-            <!-- <li><a href="{% url 'blog:bloggers' %}">Authors</a></li>
-            <li><a href="{% url 'account:account' %}">Account</a></li> -->
 
             {% if user.is_authenticated %}
             {% if user.user_type == 'r' %}
             <li><a href="{% url 'follow:Liked_author' %}">Favourite Author</a></li>
             <li><a href="{% url 'like:Liked_post' %}">Favourite Blogs</a></li>
             <li><a href="{% url 'notification:notified' %}">Notification</a></li>
+            {% endif %}
+            {% if user.user_type == 'a' %}
+            <li><a href="{% url 'blog:bloggers' %}">Authors</a></li>
+            <li><a href="{% url 'account:account' %}">Account</a></li>
             {% endif %}
             <li><a href="{% url 'account:logout' %}">Logout</a></li>
             {% else %}

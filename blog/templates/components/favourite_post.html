@@ -3,17 +3,17 @@
 
 {% block bodyblock %}
     <div>
-        <h3 class="header">Favourites</h3>
-        
+        <h3 class="header" style="text-align: center;">Favourites</h3>
+
     {% for post in posts %}
-        
+
         <div class="col s12 m6 l4">
             <div class="card hoverable post-card">
                 <div class="card-image">
                     {% if post.thumbnail_image %}
                         <img width="300" height="300" src="{{ post.thumbnail_image.url }}" alt="{{ post.title }}">
                     {% else %}
-                        <img width="300" height="300" src="{% static 'default.jpg' %}">
+                        <img width="300" height="300" src="{{ post.blog_image.url }}">
                     {% endif %}
                     <span class="card-title">{{ post.blog_title }}
                             </span>
@@ -43,19 +43,19 @@
                     <p class="truncate">{{ post.blog_content }}</p>
                 </div>
                 <div class="card-action">
-                    
+
                     <a href="{% url 'blog:post' post.pk %}" style="color: #2196F3;">Read More</a>
                         {% if user.is_authenticated %}
                             <form method = "POST" , action = "{% url 'like:like_post' %}", class = "ui form">
                             {% csrf_token %}
                             <input type = 'hidden' name = 'blog_id' value = "{{post.blog_id}}">
-                            {% if not user in post.likes.all %} 
+                            {% if not user in post.likes.all %}
                                 <button class = "ui button positive" type = "submit">Like</button>
                             {% else %}
                             <button class = "ui button negative" type = "submit">Unlike</button>
                             {% endif %}
                             </form>
-                           
+
                         {% else %}
 
                         <form method = "POST" , action = "{% url 'account:login' %}", class = "ui form">
@@ -69,4 +69,3 @@
         </div>
     {% endfor %}
 {% endblock %}
-                

@@ -66,9 +66,9 @@
 
         </ul>
         <hr color="green">
-        {{ object.blog_content|linebreaks }}
-        <br>
         {{ object.blog_description|linebreaks }}
+        <br>
+        {{ object.blog_content|linebreaks }}
         <h2 class="header">About author</h2>
         {% if object.author_id %}
         {% include "components/about_author.html" with author=object.author_id more=True %}

@@ -72,8 +72,11 @@ In this project, we have authors, articles, readers, comments.Author and Reader 
 - To check all packages in your system: `` pip freeze ``
 - To check Django install in your sytem or not,type: `` django-admin --version ``
 - To install requirements.txt file, type : ``pip install -r requirements.txt``
-- [How to protect your Django secret key using the .env file](https://www.youtube.com/watch?v=myqfTX9ZbTs&ab_channel=CodeBand)
-     - [How to protect your Django secret key using the .env file official website](https://pypi.org/project/python-decouple/)
+- [How to protect your Django secret key using the .env file official website](https://pypi.org/project/python-decouple/)
+     - [How to protect your Django secret key using the .env file](https://www.youtube.com/watch?v=myqfTX9ZbTs&ab_channel=CodeBand)  
+- [How to deploy a Django app website to Heroku using Github Repository](https://medium.com/@shashankmohabia/deploying-a-django-app-to-heroku-using-github-repository-319c04a11c1a)
+     - [How to host Django website | Deploy Django project to Heroku | Host django project](https://www.youtube.com/watch?v=nGlMa4KRnmA&list=LL&index=3&ab_channel=CodeKeen)
+
 
 ### Initial setup to build Django Project ###
 - First we need to create a virtual environment.Using a virtual environment avoids installing Django into a global python environment and we will have exact control over the libraries used in an application.
